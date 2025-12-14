@@ -1,0 +1,53 @@
+@font-face {
+    font-display: swap;
+    font-family: 'inter-regular';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/inter-v20-latin-regular.woff2') format('woff2'); 
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'inter-medium';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../assets/inter-v20-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'inter-bold';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../assets/inter-v20-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'kanit-regular';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/kanit-v17-latin-regular.woff2') format('woff2'); 
+}
+
+@font-face {
+    font-display: swap; 
+    font-family: 'kanit-medium';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../assets/kanit-v17-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'raleway-regular';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/raleway-v37-latin-regular.woff2') format('woff2');
+}
+
+$purple-color: #6C63FF;
+$purple-op20-color: #6C63FF33;
+$white-color: #F7F7F7;
+$black-color: #252525;
+$purple-placeholder: #C3C1E5;
