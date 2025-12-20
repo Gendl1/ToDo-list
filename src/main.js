@@ -7,12 +7,11 @@ const filterName   = document.querySelector('.hero__search-filter-name');
 const choiceList   = document.querySelector('.hero__search-filter-choice');
 const choiceItems  = document.querySelectorAll('.hero__search-filter-choice-text');
 
-//Add Notes button vars
-const modal = document.querySelector('.notes__modal');
+//Add Notes vars
+const modal = document.querySelector('.modal');
 const modalshow = document.querySelector('.notes__add-button');
-const modalcancel = document.querySelector('.notes__modal-buttons-cancel');
-const modalapply = document.querySelector('.notes__modal-buttons-apply');
-const modalbg = document.querySelector('.notes__modal-bg');
+const modalcancel = document.querySelector('.modal__buttons-cancel');
+const modalapply = document.querySelector('.modal__buttons-apply');
 const html = document.querySelector('.html');
 
 //Modal show

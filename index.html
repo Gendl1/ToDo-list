@@ -11,7 +11,7 @@
       <h1 class="hero__title">todo list</h1>
       <div class="hero__search">
         <div class="hero__search-input">
-          <input class="hero__search-input-area" id="1" placeholder="Search note...">
+          <input class="hero__search-input-area" placeholder="Search note...">
           <div class="hero__search-input-img">
             <img src="./public/images/search.svg">
           </div>
@@ -29,12 +29,9 @@
           </div>
         </div>
 
-        
-        
         <button class="hero__search-dark-theme">
           <img src="./public/images/theme.svg">
         </button>
-
       </div>
     </section>
 
@@ -42,20 +39,24 @@
       <button class="notes__add-button">
         <img src="./public/images/add-note.svg">
       </button>
-    </section>
-    <div class="notes__modal">
-        <h2 class="notes__modal-title">New note</h2>
-        <input id="2" class="notes__modal-input" placeholder="Input your note...">
-        <div class="notes__modal-buttons">
-          <button class="notes__modal-buttons-cancel">
-            cancel
-          </button>
 
-          <button class="notes__modal-buttons-apply"> 
-            apply
-          </button>
+      <div class="notes__list">
+        
+      </div>
+    </section>
+
+    
+    <div class="modal-overlay">
+      <div class="modal">
+        <h2 class="modal__title">New note</h2>
+        <input class="modal__input" placeholder="Input your note..." id="2">
+        <div class="modal__buttons">
+          <button class="modal__buttons-cancel">cancel</button>
+          <button class="modal__buttons-apply">apply</button>
         </div>
+      </div>
     </div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

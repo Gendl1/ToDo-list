@@ -22,7 +22,6 @@
     }
 }
 
-
 .hero {
     &__title {
         @include mixins.title-text;
@@ -139,68 +138,67 @@
         border-radius: 25px;
         padding: 13px;
     }
+}
 
-    &__modal {
-        position: absolute;
-        top: 118px;
-        left: 450px;
-        z-index: 99;
-        width: 500px;
-        height: 289px;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        padding: 17px 30px;
-        border-radius: 16px;
-        background-color: $white-color;
-        box-sizing: border-box;
+.modal {
+    position: absolute;
+    top: 118px;
+    left: 450px;
+    z-index: 99;
+    width: 500px;
+    height: 289px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 17px 30px;
+    border-radius: 16px;
+    background-color: $white-color;
+    box-sizing: border-box;
+    
+    &.open2 {
+        display: flex
+    }
 
-        &.open2 {
-            display: flex
+    &__title {
+        @include mixins.modal-title-text;
+    }
+
+    &__input {
+        margin-top: 26px;
+        border: 1px solid $purple-color;
+        padding: 0 0 0 16px;
+        border-radius: 5px;
+        height: 38px;
+        width: 100%;
+
+        &::placeholder {
+            margin-left: 16px;
+            @include mixins.modal-input-placeholder-text;
         }
+    }
 
-        &-title {
-            @include mixins.modal-title-text;
-        }
+    &__buttons {
+        display:flex;
+        justify-content: space-between;
+        gap: 233px;
+        margin-top: 128px;
+        justify-self: flex-end;
 
-        &-input {
-            margin-top: 26px;
+        &-cancel {
+            background-color: $white-color;
+            padding: 10px 22px;
             border: 1px solid $purple-color;
-            padding: 0 0 0 16px;
             border-radius: 5px;
-            height: 38px;
-            width: 100%;
-
-            &::placeholder {
-                margin-left: 16px;
-                @include mixins.modal-input-placeholder-text;
+            @include mixins.modal-cancel;
             }
+
+        &-apply {
+            background-color: $purple-color;
+            padding: 10px 22px;
+            border-radius: 5px;
+            @include mixins.modal-apply;
         }
-
-        &-buttons {
-            display:flex;
-            justify-content: space-between;
-            gap: 233px;
-            margin-top: 128px;
-            justify-self: flex-end;
-
-            &-cancel {
-                background-color: $white-color;
-                padding: 10px 22px;
-                border: 1px solid $purple-color;
-                border-radius: 5px;
-                @include mixins.modal-cancel;
-            }
-
-            &-apply {
-                background-color: $purple-color;
-                padding: 10px 22px;
-                border-radius: 5px;
-                @include mixins.modal-apply;
-            }
-            
-        }
-
-        
     }
 }
+
+
