@@ -30,7 +30,7 @@
         </div>
 
         <button class="hero__search-dark-theme">
-          <img src="./public/images/theme.svg">
+          <img src="./public/images/light_theme.svg">
         </button>
       </div>
     </section>
@@ -40,16 +40,32 @@
         <img src="./public/images/add-note.svg">
       </button>
 
-      <div class="notes__list">
-        
-      </div>
+      <ul class="notes__list">
+
+        <!-- <li class="notes__list-item">
+          <input type="checkbox" id="note-checkbox" class="notes__list-item-checkbox">
+          <div class="notes__list-item-content">
+            <span class="notes__list-item-content-text">note #1</span>
+            <div class="notes__list-item-content-img">
+              <div class="notes__list-item-content-img-edit">
+                <img src="./public/images/edit-note.svg">
+              </div>
+              <div class="notes__list-item-content-img-delete">
+                <img src="./public/images/delete-note.svg">
+              </div>
+            </div>
+          </div>
+        </li> -->
+
+      </ul>
+
     </section>
 
     
     <div class="modal-overlay">
       <div class="modal">
         <h2 class="modal__title">New note</h2>
-        <input class="modal__input" placeholder="Input your note..." id="2">
+        <input class="modal__input" placeholder="Input your note..." id="note-input">
         <div class="modal__buttons">
           <button class="modal__buttons-cancel">cancel</button>
           <button class="modal__buttons-apply">apply</button>

@@ -20,6 +20,10 @@
         background-color: rgba(0, 0, 0, 0.6);
         z-index: 50;
     }
+
+    &.dark{
+        background-color: $black-color;
+    }
 }
 
 .hero {
@@ -28,6 +32,10 @@
         text-transform: uppercase;
         justify-self: center;
         margin-top: 40px;
+
+        &.dark{
+            color: $white-color;
+        }
     }
 
     &__search {
@@ -44,6 +52,10 @@
             border: 1px solid $purple-color;
             border-radius: 5px;
 
+            &.dark {
+                border: 1px solid $white-color;
+            }
+
             &-area {
                 align-self: center;
                 width: 70%;
@@ -52,6 +64,10 @@
 
                 &::placeholder {
                     @include mixins.placeholder-text;
+                }
+
+                &.dark {
+                    color: $white-color;
                 }
             }
 
@@ -138,29 +154,102 @@
         border-radius: 25px;
         padding: 13px;
     }
+
+    &__list {
+        max-width: 520px;
+        margin-top: 30px;
+        margin: 13px auto 0 auto;
+    }
+
+    &__list-item {
+        display: flex;
+        padding: 17px 0 17px 0;
+        border-top: 1px solid $purple-color;
+
+        &:nth-child(1){
+            border-top: none;
+        }
+
+        &-checkbox {
+            width: 26px;
+            height: 26px;
+            margin: 0;
+            margin-right: 7px;
+
+            &:checked ~ .notes__list-item-content .notes__list-item-content-text {
+                text-decoration: line-through;
+                color: #8e8e8e;
+            }
+
+        }
+
+        &-content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            &-text{
+                align-self: center;
+                font-family: 'kanit-medium';
+                font-size: 20px;
+                line-height: 100%;
+                text-transform: uppercase;
+
+                &.dark{
+                    color: $white-color;
+                }
+            }
+
+            &-img{
+                display: flex;
+                gap: 10px;
+
+                &-edit,&-delete{
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
 }
 
 .modal {
-    position: absolute;
-    top: 118px;
-    left: 450px;
-    z-index: 99;
+    position: relative; 
+    z-index: 91;
     width: 500px;
-    height: 289px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    padding: 17px 30px;
+    max-height: 90vh;
+    background: white;
     border-radius: 16px;
-    background-color: $white-color;
-    box-sizing: border-box;
-    
-    &.open2 {
-        display: flex
+    padding: 24px 32px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+
+    &.dark {
+        background: $black-color;
+    }
+
+    &-overlay {
+        position: fixed;
+        top:0 ;
+        right:0 ;
+        bottom:0 ;
+        left:0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 90;
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        &.open {
+            display: flex;
+        }
     }
 
     &__title {
         @include mixins.modal-title-text;
+
+        &.dark {
+            color: $white-color;
+        }
     }
 
     &__input {
@@ -174,6 +263,10 @@
         &::placeholder {
             margin-left: 16px;
             @include mixins.modal-input-placeholder-text;
+        }
+
+        &.dark{
+            color: $white-color;
         }
     }
 
@@ -190,7 +283,11 @@
             border: 1px solid $purple-color;
             border-radius: 5px;
             @include mixins.modal-cancel;
+
+            &.dark {
+                background-color: $black-color;
             }
+        }
 
         &-apply {
             background-color: $purple-color;
@@ -200,5 +297,3 @@
         }
     }
 }
-
-
