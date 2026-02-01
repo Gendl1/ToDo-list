@@ -2,6 +2,34 @@
 @use 'variables' as *;
 @use 'mixins' as mixins;
 
+:root {
+    --hero-search-input-border: 1px solid #6C63FF;
+    --html: #fff;
+    --hero-title: #252525;
+    --modal-bg: #fff;
+    --modal-buttons-cancel-bg: #F7F7F7;
+    --modal-title: #252525;
+    --hero-search-input-area: #252525;
+    --modal-input: #252525;
+    --notes-list-item-content: #252525;
+    --hero-search-filter-choice: #fff;
+    --hero__search-input-area-ph:#C3C1E5;
+}
+
+.dark {
+    --hero-search-input-border: 1px solid #F7F7F7;
+    --html: #252525;
+    --hero-title: #F7F7F7;
+    --modal-bg: #252525;
+    --modal-buttons-cancel-bg: #252525;
+    --modal-title: #F7F7F7;
+    --hero-search-input-area: #F7F7F7;
+    --modal-input: #F7F7F7;
+    --notes-list-item-content: #F7F7F7;
+    --hero-search-filter-choice: #252525;
+    --hero__search-input-area-ph:#666666;
+}
+
 .container {
     max-width: 750px;
     margin: 0 auto;
@@ -13,16 +41,13 @@
 }
 
 .html {
+    background-color: var(--html);
     &.modal-bg{
         position: relative;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.6);
         z-index: 50;
-    }
-
-    &.dark{
-        background-color: $black-color;
     }
 }
 
@@ -32,10 +57,7 @@
         text-transform: uppercase;
         justify-self: center;
         margin-top: 40px;
-
-        &.dark{
-            color: $white-color;
-        }
+        color: var(--hero-title);
     }
 
     &__search {
@@ -49,25 +71,19 @@
             justify-content: space-between;
             width: 70%;
             min-height: 38px;
-            border: 1px solid $purple-color;
+            border: var(--hero-search-input-border);
             border-radius: 5px;
-
-            &.dark {
-                border: 1px solid $white-color;
-            }
 
             &-area {
                 align-self: center;
                 width: 70%;
                 height: 90%;
                 z-index: 2;
+                color: var(--hero-search-input-area);
 
                 &::placeholder {
                     @include mixins.placeholder-text;
-                }
-
-                &.dark {
-                    color: $white-color;
+                    color: var(--hero__search-input-area-ph);
                 }
             }
 
@@ -112,6 +128,7 @@
                 border-radius: 5px;
                 width: fit-content;
                 box-sizing: border-box;
+                background-color: var(--hero-search-filter-choice);
 
                 &-text {
                     @include mixins.choice-text;
@@ -170,6 +187,22 @@
             border-top: none;
         }
 
+        &.hidden{
+            display: none;
+        }
+
+        &:not(.hidden):first-of-type{
+            border-top: none;
+        }
+
+        &.search-hidden{
+            display: none;
+        }
+
+        &.search-hidden + .notes__list-item {
+            border-top: none;
+        }
+
         &-checkbox {
             width: 26px;
             height: 26px;
@@ -187,6 +220,7 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            color: var(--notes-list-item-content);
 
             &-text{
                 align-self: center;
@@ -218,14 +252,10 @@
     z-index: 91;
     width: 500px;
     max-height: 90vh;
-    background: white;
+    background: var(--modal-bg);
     border-radius: 16px;
     padding: 24px 32px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-
-    &.dark {
-        background: $black-color;
-    }
 
     &-overlay {
         position: fixed;
@@ -246,10 +276,7 @@
 
     &__title {
         @include mixins.modal-title-text;
-
-        &.dark {
-            color: $white-color;
-        }
+        color: var(--modal-title);
     }
 
     &__input {
@@ -259,14 +286,11 @@
         border-radius: 5px;
         height: 38px;
         width: 100%;
+        color: var(--modal-input);
 
         &::placeholder {
             margin-left: 16px;
             @include mixins.modal-input-placeholder-text;
-        }
-
-        &.dark{
-            color: $white-color;
         }
     }
 
@@ -278,15 +302,11 @@
         justify-self: flex-end;
 
         &-cancel {
-            background-color: $white-color;
+            background-color: var(--modal-buttons-cancel-bg);
             padding: 10px 22px;
             border: 1px solid $purple-color;
             border-radius: 5px;
             @include mixins.modal-cancel;
-
-            &.dark {
-                background-color: $black-color;
-            }
         }
 
         &-apply {

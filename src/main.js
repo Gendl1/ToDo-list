@@ -6,6 +6,7 @@ const filterBlock  = document.querySelector('.hero__search-filter');
 const filterName   = document.querySelector('.hero__search-filter-name');
 const choiceList   = document.querySelector('.hero__search-filter-choice');
 const choiceItems  = document.querySelectorAll('.hero__search-filter-choice-text');
+let currentFilter = 'all';  // 'all' | 'complete' | 'incomplete'
 
 //Add Notes vars
 const overlay = document.querySelector('.modal-overlay');
@@ -14,11 +15,19 @@ const cancelBtn = document.querySelector('.modal__buttons-cancel');
 const applyBtn  = document.querySelector('.modal__buttons-apply');
 const noteInput = document.querySelector('#note-input');
 const notesList = document.querySelector('.notes__list');
-let noteBeingEdited = null;   // хранит ссылку на <li>, который редактируем
+let noteBeingEdited = null;
+const noteTemplate = document.querySelector('#note-template');
+
+if (!noteTemplate) {
+    console.error('Шаблон #note-template не найден!');
+    
+}
 
 //Theme switch vars
 const themeBtn = document.querySelector('.hero__search-dark-theme');
-let isDark= false;
+
+//Search notes vars
+const searchInput = document.querySelector('.hero__search-input-area');
 
 //Open modal
 function openModal() {
@@ -43,6 +52,25 @@ overlay.addEventListener('click', e => {
     }
 });
 
+//Add note function
+function createNoteElement(text) {
+    // Клонируем содержимое шаблона
+    const templateContent = noteTemplate.content.cloneNode(true);
+    const noteElement = templateContent.querySelector('.notes__list-item');
+    const textSpan = noteElement.querySelector('.notes__list-item-content-text');
+    
+    // Устанавливаем текст
+    textSpan.textContent = text;
+    
+    // Проверка темы
+    const isCurrentlyDark = document.body.classList.contains('dark');
+    if (isCurrentlyDark) {
+        textSpan.classList.add('dark');
+    }
+    
+    return noteElement;
+}
+
 //Add note and edit note 
 applyBtn.addEventListener('click', () => {
     const text = noteInput.value.trim();
@@ -64,25 +92,8 @@ applyBtn.addEventListener('click', () => {
 
     else {
         //Создание заметки
-        const li = document.createElement('li');
-        li.className = 'notes__list-item';
-
-        li.innerHTML = `
-            <input type="checkbox" id="note-checkbox" class="notes__list-item-checkbox">
-            <div class="notes__list-item-content">
-                <span class="notes__list-item-content-text">${text}</span>
-                <div class="notes__list-item-content-img">
-                    <div class="notes__list-item-content-img-edit">
-                        <img src="./public/images/edit-note.svg">
-                    </div>
-                    <div class="notes__list-item-content-img-delete">
-                        <img src="./public/images/delete-note.svg">
-                    </div>
-                </div>
-            </div>
-        `;
-
-        notesList.appendChild(li);
+        const noteElement = createNoteElement(text);
+        notesList.appendChild(noteElement)
     }
 
     closeModal();
@@ -157,27 +168,97 @@ document.addEventListener('click', (e) => {
 
 //Theme switch
 themeBtn.addEventListener('click', () => {
-    isDark = !isDark;
-    document.body.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('dark');
 
-    const elementsToChange = [
-        document.querySelector('.hero__search-input'),
-        document.querySelector('.html'),
-        document.querySelector('.hero__title'),
-        document.querySelector('.modal'),
-        document.querySelector('.modal__buttons-cancel'),
-        document.querySelector('.modal__title'),
-        document.querySelector('.hero__search-input-area'),
-        document.querySelector('.modal__input')
-    ];
-
-    elementsToChange.forEach(el => el?.classList.toggle('dark', isDark));
-
-    // переключение сразу все текстов заметок
-    document.querySelectorAll('.notes__list-item-content-text')
-        .forEach(el => el.classList.toggle('dark', isDark));
-        
-    //Переключение картинки
-    themeBtn.querySelector('img')?.setAttribute('src', isDark ? './public/images/dark_theme.svg' : './public/images/light_theme.svg');
+    // Смена иконки 
+    const img = themeBtn.querySelector('img');
+    if (img) {
+        const isDarkNow = document.documentElement.classList.contains('dark');
+        img.src = isDarkNow 
+            ? './public/images/dark_theme.svg' 
+            : './public/images/light_theme.svg';
+    }
 });
 
+//Notes search
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+
+    document.querySelectorAll('.notes__list-item').forEach(note => {
+        const text = note.querySelector('.notes__list-item-content-text')?.textContent?.toLowerCase();
+
+        if (query === '' || text.includes(query)) {
+            note.classList.remove('search-hidden');
+        } else {
+            note.classList.add('search-hidden');
+        }
+    });
+});
+
+
+// Обработка чекбокса
+notesList.addEventListener('change', e => {
+    if (e.target.matches('.notes__list-item-checkbox')) {
+        const noteItem = e.target.closest('.notes__list-item');
+
+        if (noteItem) {
+            const checked = e.target.checked;
+            noteItem.classList.toggle('completed', checked);
+        }
+    }
+});
+
+// Функция применения фильтра
+function applyFilter() {
+    document.querySelectorAll('.notes__list-item').forEach(item => {
+    const isCompleted = item.classList.contains('completed');
+
+    let shouldShow = true;
+
+    if (currentFilter === 'complete') {
+        shouldShow = isCompleted;
+    } 
+    
+    else if (currentFilter === 'incomplete') {
+        shouldShow = !isCompleted;
+    }
+    // 'all' → показываем всех
+
+    item.classList.toggle('hidden', !shouldShow);
+    });
+}
+
+// Находим все пункты в выпадающем списке
+const filterChoices = document.querySelectorAll('.hero__search-filter-choice-text');
+
+filterChoices.forEach(choice => {
+    choice.addEventListener('click', () => {
+    // Убираем активный класс со всех пунктов
+    filterChoices.forEach(c => c.classList.remove('active'));
+
+    // Добавляем активный класс выбранному
+    choice.classList.add('active');
+
+    // Получаем значение фильтра
+    const value = choice.dataset.value.toLowerCase(); 
+
+    currentFilter = value;
+
+    // Меняем видимый текст фильтра
+    filterName.textContent = choice.querySelector('span').textContent;
+
+    // Закрываем выпадающий список
+    choiceList.classList.remove('open');
+
+    // Применяем фильтр
+    applyFilter();
+    });
+});
+
+// Чтобы по умолчанию был выбран "All"
+document.addEventListener('DOMContentLoaded', () => {
+    const allChoice = document.querySelector('.hero__search-filter-choice-text[data-value="All"]');
+    if (allChoice) {
+        allChoice.click();  // программно кликаем → применится фильтр "all"
+    }
+});

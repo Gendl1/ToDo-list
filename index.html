@@ -42,21 +42,6 @@
 
       <ul class="notes__list">
 
-        <!-- <li class="notes__list-item">
-          <input type="checkbox" id="note-checkbox" class="notes__list-item-checkbox">
-          <div class="notes__list-item-content">
-            <span class="notes__list-item-content-text">note #1</span>
-            <div class="notes__list-item-content-img">
-              <div class="notes__list-item-content-img-edit">
-                <img src="./public/images/edit-note.svg">
-              </div>
-              <div class="notes__list-item-content-img-delete">
-                <img src="./public/images/delete-note.svg">
-              </div>
-            </div>
-          </div>
-        </li> -->
-
       </ul>
 
     </section>
@@ -72,6 +57,24 @@
         </div>
       </div>
     </div>
+
+    <template id="note-template">
+      <li class="notes__list-item">
+        <input type="checkbox" id="note-checkbox" class="notes__list-item-checkbox">
+          <div class="notes__list-item-content">
+            <span class="notes__list-item-content-text">${text}</span>
+              <div class="notes__list-item-content-img">
+                <div class="notes__list-item-content-img-edit">
+                  <img src="./public/images/edit-note.svg">
+                </div>
+                <div class="notes__list-item-content-img-delete">
+                  <img src="./public/images/delete-note.svg">
+                </div>
+              </div>
+          </div>
+        </li>
+    </template>
+      
 
     <script type="module" src="/src/main.js"></script>
   </body>
