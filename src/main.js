@@ -18,13 +18,8 @@ const notesList = document.querySelector('.notes__list');
 let noteBeingEdited = null;
 const noteTemplate = document.querySelector('#note-template');
 
-if (!noteTemplate) {
-    console.error('Шаблон #note-template не найден!');
-    
-}
-
 //Theme switch vars
-const themeBtn = document.querySelector('.hero__search-dark-theme');
+const themeBtn = document.querySelector('.hero__search-theme');
 
 //Search notes vars
 const searchInput = document.querySelector('.hero__search-input-area');
@@ -32,6 +27,7 @@ const searchInput = document.querySelector('.hero__search-input-area');
 //Open modal
 function openModal() {
     overlay.classList.add('open');
+    noteInput.value = ''
 }
 
 //Open modal through Add Note btn
@@ -54,6 +50,12 @@ overlay.addEventListener('click', e => {
 
 //Add note function
 function createNoteElement(text) {
+    
+    if (text === '') {
+        alert('Пожалуйста, введите текст заметки');
+        return;
+    }
+
     // Клонируем содержимое шаблона
     const templateContent = noteTemplate.content.cloneNode(true);
     const noteElement = templateContent.querySelector('.notes__list-item');
@@ -71,14 +73,9 @@ function createNoteElement(text) {
     return noteElement;
 }
 
-//Add note and edit note 
-applyBtn.addEventListener('click', () => {
+//Edit note function
+function editNote(){
     const text = noteInput.value.trim();
-
-    if (text === '') {
-        alert('Пожалуйста, введите текст заметки');
-        return;
-    }
 
     if (noteBeingEdited) {
         //Редактирование заметки 
@@ -95,50 +92,46 @@ applyBtn.addEventListener('click', () => {
         const noteElement = createNoteElement(text);
         notesList.appendChild(noteElement)
     }
+}
 
+//Add note and edit note 
+applyBtn.addEventListener('click', () => {
+    editNote();
     closeModal();
 });
 
 // Open modal for editing note and delete note
+function noteEdit(e) {
+    if (!e.target.closest('.notes__list-item-content-img-edit')) return;
+
+    const noteItem = e.target.closest('.notes__list-item');
+    if (!noteItem) return;
+
+    const textSpan = noteItem.querySelector('.notes__list-item-content-text');
+    if (!textSpan) return;
+
+    noteBeingEdited = noteItem;
+
+    openModal();
+    noteInput.focus();
+}
+
+// Обработчик клика по иконке удаления
+function noteDelete(e) {
+    const deleteBtn = e.target.closest('.notes__list-item-content-img-delete');
+    if (!deleteBtn) return;
+
+    const noteItem = deleteBtn.closest('.notes__list-item');
+    if (!noteItem) return;
+
+    if (confirm('Удалить эту заметку?')) {
+        noteItem.remove();
+    }
+}
+
 notesList.addEventListener('click', function(e) {
-    
-    // клик по иконке редактирования
-    if (e.target.closest('.notes__list-item-content-img-edit')) {
-        const noteItem = e.target.closest('.notes__list-item');
-
-        if (!noteItem) return;
-
-        const textSpan = noteItem.querySelector('.notes__list-item-content-text');
-        if (!textSpan) return;
-
-        // запоминаем заметку, которую редактируем
-        noteBeingEdited = noteItem;
-
-        // Заранее заполняем поле изначальным текстом заметки
-        noteInput.value = textSpan.textContent.trim();
-
-        // открываем модалку
-        openModal();
-        noteInput.focus();
-        noteInput.select();   // выделение изначального текста
-    }
-
-    //клик по иконке удаления
-    if (e.target.closest('.notes__list-item-content-img-delete')) {
-        const deleteArea = e.target.closest('.notes__list-item-content-img-delete');
-
-        if (deleteArea) {
-            // находим ближайшую заметку (li)
-            const noteItem = deleteArea.closest('.notes__list-item');
-
-            if (noteItem) {
-                // можно добавить подтверждение (рекомендую)
-                if (confirm('Удалить эту заметку?')) {
-                    noteItem.remove();
-                }
-            }
-        }
-    }
+    noteEdit(e);
+    noteDelete(e);
 });
 
 // Filter show
@@ -151,11 +144,20 @@ filterBlock.addEventListener('click', (e) => {
 });
 
 //Filter select
+function filterSelect(item) {
+    // Получаем текст выбранного пункта
+    const selectedText = item.querySelector('span')?.textContent?.trim() ?? '';
+
+    // Обновляем отображаемый текст фильтра
+    filterName.textContent = selectedText;
+
+    // Закрываем выпадающий список
+    choiceList.classList.remove('open');
+}
+
 choiceItems.forEach(item => {
     item.addEventListener('click', () => {
-        const selectedText = item.querySelector('span').textContent.trim();
-        filterName.textContent = selectedText;
-        choiceList.classList.remove('open');
+        filterSelect(item);
     });
 });
 
@@ -167,10 +169,9 @@ document.addEventListener('click', (e) => {
 });
 
 //Theme switch
-themeBtn.addEventListener('click', () => {
+function themeSwitch(){
     document.documentElement.classList.toggle('dark');
 
-    // Смена иконки 
     const img = themeBtn.querySelector('img');
     if (img) {
         const isDarkNow = document.documentElement.classList.contains('dark');
@@ -178,10 +179,14 @@ themeBtn.addEventListener('click', () => {
             ? './public/images/dark_theme.svg' 
             : './public/images/light_theme.svg';
     }
+}
+
+//Theme switch
+themeBtn.addEventListener('click', () => {
+    themeSwitch();
 });
 
-//Notes search
-searchInput.addEventListener('input', () => {
+function notesSearch() {
     const query = searchInput.value.trim().toLowerCase();
 
     document.querySelectorAll('.notes__list-item').forEach(note => {
@@ -193,18 +198,25 @@ searchInput.addEventListener('input', () => {
             note.classList.add('search-hidden');
         }
     });
+}
+//Notes search
+searchInput.addEventListener('input', () => {
+    notesSearch();
 });
 
-
 // Обработка чекбокса
+function handleNoteCheckboxChange(checkbox) {
+    const noteItem = checkbox.closest('.notes__list-item');
+    
+    if (noteItem) {
+        const isChecked = checkbox.checked;
+        noteItem.classList.toggle('completed', isChecked);
+    }
+}
+
 notesList.addEventListener('change', e => {
     if (e.target.matches('.notes__list-item-checkbox')) {
-        const noteItem = e.target.closest('.notes__list-item');
-
-        if (noteItem) {
-            const checked = e.target.checked;
-            noteItem.classList.toggle('completed', checked);
-        }
+        handleNoteCheckboxChange(e.target);
     }
 });
 
@@ -231,34 +243,42 @@ function applyFilter() {
 // Находим все пункты в выпадающем списке
 const filterChoices = document.querySelectorAll('.hero__search-filter-choice-text');
 
-filterChoices.forEach(choice => {
-    choice.addEventListener('click', () => {
-    // Убираем активный класс со всех пунктов
+
+function handleFilterChoiceClick(choice) {
+    // Убираем active со всех
     filterChoices.forEach(c => c.classList.remove('active'));
 
-    // Добавляем активный класс выбранному
+    // Добавляем active выбранному
     choice.classList.add('active');
 
     // Получаем значение фильтра
-    const value = choice.dataset.value.toLowerCase(); 
-
+    const value = choice.dataset.value.toLowerCase();
     currentFilter = value;
 
-    // Меняем видимый текст фильтра
+    // Обновляем видимый текст
     filterName.textContent = choice.querySelector('span').textContent;
 
-    // Закрываем выпадающий список
+    // Закрываем выпадашку
     choiceList.classList.remove('open');
 
     // Применяем фильтр
     applyFilter();
+}
+
+filterChoices.forEach(choice => {
+    choice.addEventListener('click', () => {
+        handleFilterChoiceClick(choice);
     });
 });
 
-// Чтобы по умолчанию был выбран "All"
-document.addEventListener('DOMContentLoaded', () => {
+function defaultchoise(){
     const allChoice = document.querySelector('.hero__search-filter-choice-text[data-value="All"]');
     if (allChoice) {
         allChoice.click();  // программно кликаем → применится фильтр "all"
     }
+}
+
+// Чтобы по умолчанию был выбран "All"
+document.addEventListener('DOMContentLoaded', () => {
+    defaultchoise();
 });

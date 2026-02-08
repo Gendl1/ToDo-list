@@ -1,20 +1,20 @@
 @use 'variables' as *;
 
 @mixin title-text {
-    font-family: 'kanit-medium';
+    font-family: 'kanit-medium', Arial, Helvetica, sans-serif;
     font-size: clamp(1rem, 0.8214rem + 0.8929vw, 1.625rem);
     line-height: 100%;
     color: $black-color;
 }
 
 @mixin placeholder-text {
-    font-family: 'inter-medium';
+    font-family: 'inter-medium', Arial, Helvetica, sans-serif;
     font-size: clamp(0.625rem, 0.5179rem + 0.5357vw, 1rem);
     line-height: 100%;
 }
 
 @mixin filter-text {
-    font-family: 'kanit-medium';
+    font-family: 'kanit-medium', Arial, Helvetica, sans-serif;
     font-size: clamp(0.75rem, 0.6429rem + 0.5357vw, 1.125rem);
     line-height: 100%;
     color: $white-color;
@@ -22,14 +22,14 @@
 }
 
 @mixin choice-text {
-    font-family: 'kanit-regular';
+    font-family: 'kanit-regular', Arial, Helvetica, sans-serif;
     font-size: clamp(0.625rem, 0.5179rem + 0.5357vw, 1rem);
     line-height: 100%;
     color: $purple-color;
 }
 
 @mixin modal-title-text {
-    font-family: 'kanit-medium';
+    font-family: 'kanit-medium', Arial, Helvetica, sans-serif;
     font-size: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
     line-height: 100%;
     text-transform: uppercase;
@@ -37,14 +37,14 @@
 }
 
 @mixin modal-input-placeholder-text {
-    font-family: 'inter-medium';
+    font-family: 'inter-medium', Arial, Helvetica, sans-serif;
     font-size: clamp(0.5rem, 0.3571rem + 0.7143vw, 1rem);
     line-height: 100%;
     color: $purple-placeholder;
 }
 
 @mixin modal-cancel {
-    font-family: 'kanit-medium';
+    font-family: 'kanit-medium', Arial, Helvetica, sans-serif;
     font-size: 18px;
     line-height: 100%;
     color: $purple-color;
@@ -52,7 +52,7 @@
 }
 
 @mixin modal-apply {
-    font-family: 'kanit-medium';
+    font-family: 'kanit-medium', Arial, Helvetica, sans-serif;
     font-size: 18px;
     line-height: 100%;
     color: $white-color;

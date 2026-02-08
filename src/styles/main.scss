@@ -52,11 +52,15 @@
 }
 
 .hero {
+
+    &-container{
+        padding: 40px 10px 13px 10px
+    }
+
     &__title {
         @include mixins.title-text;
         text-transform: uppercase;
         justify-self: center;
-        margin-top: 40px;
         color: var(--hero-title);
     }
 
@@ -95,6 +99,7 @@
         }
 
         &-filter {
+            cursor: pointer;
             position: relative;
             border-radius: 5px;
             display: flex;
@@ -150,7 +155,8 @@
             }
         }
 
-        &-dark-theme {
+        &-theme {
+            cursor: pointer;
             border: none;
             padding: 8px;
             border-radius: 8px;
@@ -160,10 +166,11 @@
 }
 
 .notes {
-    height: 575px;
+    min-height: 575px;
     position: relative;
 
     &__add-button {
+        cursor: pointer;
         position: absolute;
         bottom: 32px;
         right: 23px;
@@ -174,8 +181,7 @@
 
     &__list {
         max-width: 520px;
-        margin-top: 30px;
-        margin: 13px auto 0 auto;
+        margin: 0 auto 0 auto;
     }
 
     &__list-item {
@@ -191,10 +197,6 @@
             display: none;
         }
 
-        &:not(.hidden):first-of-type{
-            border-top: none;
-        }
-
         &.search-hidden{
             display: none;
         }
@@ -204,16 +206,34 @@
         }
 
         &-checkbox {
-            width: 26px;
+            appearance: none;
+            min-width: 26px;
             height: 26px;
-            margin: 0;
-            margin-right: 7px;
+            margin-right: 17px;
+            border: 1px solid #6C63FF;
+            border-radius: 2px;
+            background: white;
+            position: relative;
+            cursor: pointer;
+
+            &:checked {
+                background: $purple-color;
+
+                &::after {
+                    content: url("/public/images/checked.svg");
+                    position: absolute;
+                    top: 3px;
+                    left: 5px;
+                    color: white;
+                    text-align: center;
+                }
+            }
 
             &:checked ~ .notes__list-item-content .notes__list-item-content-text {
                 text-decoration: line-through;
                 color: #8e8e8e;
+                opacity: 0.75;
             }
-
         }
 
         &-content {
@@ -239,6 +259,7 @@
                 gap: 10px;
 
                 &-edit,&-delete{
+                    cursor: pointer;
                     display: flex;
                     align-items: center;
                 }
@@ -302,6 +323,7 @@
         justify-self: flex-end;
 
         &-cancel {
+            cursor: pointer;
             background-color: var(--modal-buttons-cancel-bg);
             padding: 10px 22px;
             border: 1px solid $purple-color;
@@ -310,6 +332,7 @@
         }
 
         &-apply {
+            cursor: pointer;
             background-color: $purple-color;
             padding: 10px 22px;
             border-radius: 5px;

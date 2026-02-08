@@ -7,31 +7,33 @@
   </head>
   <body>
     
-    <section class="hero container">
-      <h1 class="hero__title">todo list</h1>
-      <div class="hero__search">
-        <div class="hero__search-input">
-          <input class="hero__search-input-area" placeholder="Search note...">
-          <div class="hero__search-input-img">
-            <img src="./public/images/search.svg">
+    <section class="hero">
+      <div class="hero-container container">
+        <h1 class="hero__title">todo list</h1>
+        <div class="hero__search">
+          <div class="hero__search-input">
+            <input class="hero__search-input-area" placeholder="Search note...">
+            <div class="hero__search-input-img">
+              <img src="./public/images/search.svg">
+            </div>
           </div>
-        </div>
 
-        <div class="hero__search-filter">
-          <span class="hero__search-filter-name">all</span>
-          <div class="hero__search-filter-img">
-            <img src="./public/images/filter-closed.svg" class="special-img">
+          <div class="hero__search-filter">
+            <span class="hero__search-filter-name">all</span>
+            <div class="hero__search-filter-img">
+              <img src="./public/images/filter-closed.svg" class="special-img">
+            </div>
+            <div class="hero__search-filter-choice">
+              <div class="hero__search-filter-choice-text" data-value="All"><span>All</span></div>
+              <div class="hero__search-filter-choice-text" data-value="Complete"><span>Complete</span></div>
+              <div class="hero__search-filter-choice-text" data-value="Incomplete"><span>Incomplete</span></div>
+            </div>
           </div>
-          <div class="hero__search-filter-choice">
-            <div class="hero__search-filter-choice-text" data-value="All"><span>All</span></div>
-            <div class="hero__search-filter-choice-text" data-value="Complete"><span>Complete</span></div>
-            <div class="hero__search-filter-choice-text" data-value="Incomplete"><span>Incomplete</span></div>
-          </div>
-        </div>
 
-        <button class="hero__search-dark-theme">
-          <img src="./public/images/light_theme.svg">
-        </button>
+          <button class="hero__search-theme">
+            <img src="./public/images/light_theme.svg">
+          </button>
+        </div>
       </div>
     </section>
 
