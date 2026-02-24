@@ -6,6 +6,7 @@
     z-index: 91;
     width: 43%;
     max-height: 90vh;
+    max-width: 500px;
     background: var(--modal-bg);
     border-radius: 16px;
     padding: 24px 32px;
@@ -51,9 +52,7 @@
     &__buttons {
         display:flex;
         justify-content: space-between;
-        gap: 233px;
         margin-top: 128px;
-        justify-self: flex-end;
 
         &-cancel {
             cursor: pointer;
