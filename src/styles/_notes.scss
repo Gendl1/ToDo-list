@@ -1,0 +1,105 @@
+@use 'variables' as *;
+@use 'mixins' as mixins;
+
+.notes {
+    min-height: 575px;
+    position: relative;
+
+    &__add-button {
+        cursor: pointer;
+        position: absolute;
+        bottom: 32px;
+        right: 23px;
+        background-color: $purple-color;
+        border-radius: 25px;
+        padding: 13px;
+    }
+
+    &__list {
+        max-width: 520px;
+        margin: 0 auto 0 auto;
+    }
+
+    &__list-item {
+        display: flex;
+        padding: 17px 0 17px 0;
+        border-top: 1px solid $purple-color;
+
+        &:nth-child(1){
+            border-top: none;
+        }
+
+        &.hidden{
+            display: none;
+        }
+
+        &.search-hidden{
+            display: none;
+        }
+
+        &.search-hidden + .notes__list-item {
+            border-top: none;
+        }
+
+        &-checkbox {
+            appearance: none;
+            min-width: 26px;
+            height: 26px;
+            margin-right: 17px;
+            border: 1px solid #6C63FF;
+            border-radius: 2px;
+            background: white;
+            position: relative;
+            cursor: pointer;
+
+            &:checked {
+                background: $purple-color;
+
+                &::after {
+                    content: url("/public/images/checked.svg");
+                    position: absolute;
+                    top: 3px;
+                    left: 5px;
+                    color: white;
+                    text-align: center;
+                }
+            }
+
+            &:checked ~ .notes__list-item-content .notes__list-item-content-text {
+                text-decoration: line-through;
+                color: #8e8e8e;
+                opacity: 0.75;
+            }
+        }
+
+        &-content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            color: var(--notes-list-item-content);
+
+            &-text{
+                align-self: center;
+                font-family: 'kanit-medium';
+                font-size: 20px;
+                line-height: 100%;
+                text-transform: uppercase;
+
+                &.dark{
+                    color: $white-color;
+                }
+            }
+
+            &-img{
+                display: flex;
+                gap: 10px;
+
+                &-edit,&-delete{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

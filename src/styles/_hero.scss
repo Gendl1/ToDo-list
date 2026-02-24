@@ -1,0 +1,116 @@
+@use 'variables' as *;
+@use 'mixins' as mixins;
+
+.hero {
+
+    &-container{
+        padding: 40px 10px 30px 10px
+    }
+
+    &__title {
+        @include mixins.title-text;
+        text-transform: uppercase;
+        justify-self: center;
+        color: var(--hero-title);
+    }
+
+    &__search {
+        margin-top: 18px;
+        display: flex;
+        gap: 16px;
+
+        &-input {
+            padding: 0 16px 0 16px;
+            display: flex;
+            justify-content: space-between;
+            width: 70%;
+            min-height: 38px;
+            border: var(--hero-search-input-border);
+            border-radius: 5px;
+
+            &-area {
+                align-self: center;
+                width: 70%;
+                height: 90%;
+                z-index: 2;
+                color: var(--hero-search-input-area);
+
+                &::placeholder {
+                    @include mixins.placeholder-text;
+                    color: var(--hero__search-input-area-ph);
+                }
+            }
+
+            &-img {
+                width: 21px;
+                display: flex;
+                justify-self: end;
+            }
+        }
+
+        &-filter {
+            cursor: pointer;
+            position: relative;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+            min-width: 70px;
+            background-color: $purple-color;
+            box-sizing: border-box;
+
+            &-name {
+                align-self: center;
+                @include mixins.filter-text;
+            }
+
+            &-img {
+                width: 7px;
+                height: 4px;
+            }
+
+            &-choice {
+                position: absolute;
+                top: 39.6px;
+                left: 0;
+                display: none;
+                flex-direction: column;
+                padding: 8.4px 0;
+                z-index: 2;
+                border: 1px solid $purple-color;
+                border-radius: 5px;
+                width: fit-content;
+                box-sizing: border-box;
+                background-color: var(--hero-search-filter-choice);
+
+                &-text {
+                    @include mixins.choice-text;
+                    padding: 3.4px 0 4.6px 0;
+
+                    span {
+                        margin-left: 6px;
+                        margin-right: 6px;
+                    }
+                    &:hover {
+                        background-color: $purple-op20-color;
+                        
+                    }
+                }
+
+                &.open {
+                    display: flex;
+                }
+            }
+        }
+
+        &-theme {
+            cursor: pointer;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            background-color: $purple-color;
+        }
+    }
+}

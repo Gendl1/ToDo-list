@@ -1,0 +1,75 @@
+@use 'variables' as *;
+@use 'mixins' as mixins;
+
+.modal {
+    position: relative; 
+    z-index: 91;
+    width: 43%;
+    max-height: 90vh;
+    background: var(--modal-bg);
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+
+    &-overlay {
+        position: fixed;
+        top:0 ;
+        right:0 ;
+        bottom:0 ;
+        left:0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 90;
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        &.open {
+            display: flex;
+        }
+    }
+
+    &__title {
+        @include mixins.modal-title-text;
+        color: var(--modal-title);
+    }
+
+    &__input {
+        margin-top: 26px;
+        border: 1px solid $purple-color;
+        padding: 0 0 0 16px;
+        border-radius: 5px;
+        height: 38px;
+        width: 100%;
+        color: var(--modal-input);
+
+        &::placeholder {
+            margin-left: 16px;
+            @include mixins.modal-input-placeholder-text;
+        }
+    }
+
+    &__buttons {
+        display:flex;
+        justify-content: space-between;
+        gap: 233px;
+        margin-top: 128px;
+        justify-self: flex-end;
+
+        &-cancel {
+            cursor: pointer;
+            background-color: var(--modal-buttons-cancel-bg);
+            padding: 10px 22px;
+            border: 1px solid $purple-color;
+            border-radius: 5px;
+            @include mixins.modal-cancel;
+        }
+
+        &-apply {
+            cursor: pointer;
+            background-color: $purple-color;
+            padding: 10px 22px;
+            border-radius: 5px;
+            @include mixins.modal-apply;
+        }
+    }
+}
